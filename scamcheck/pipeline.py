@@ -1,12 +1,13 @@
 """The pipeline: runs every step in order and returns one result for the screen.
 
-Steps: extract facts -> rule checks -> (later: Tavily search) -> AI judgement.
+Steps: extract facts -> rule checks -> Tavily web lookup -> AI judgement.
 If the AI step is not set up or fails, the rule-based answer is still returned,
 so the app never shows an empty screen.
 """
 
 from .extract import extract_facts
 from .llm import NOT_CONFIGURED, ask_model
+from .search import search_entities
 from .signals import detect_signals
 
 LEVELS = ["Probably safe", "Suspicious", "Likely scam"]
@@ -60,7 +61,7 @@ def rule_verdict(signals):
     return score, "Probably safe"
 
 
-def analyze(message, use_ai=True, client=None):
+def analyze(message, use_ai=True, client=None, use_search=None, search_client=None):
     """Check a message and return everything the screen needs to show."""
     message = (message or "").strip()
     if not message:
@@ -76,12 +77,19 @@ def analyze(message, use_ai=True, client=None):
     signals = detect_signals(message, facts)
     score, verdict = rule_verdict(signals)
 
-    # Step 3 (later): search the web with Tavily for the links and names found.
+    # Step 3: look up the websites, phone numbers and handles found (not the whole message).
+    if use_search is None:
+        use_search = use_ai
+    search_results, search_error = [], None
+    if use_search:
+        search_results, search_error = search_entities(facts, client=search_client)
 
     # Step 4: ask the AI model to judge everything together.
     ai, ai_error = (None, None)
     if use_ai:
-        ai, ai_error = ask_model(message, facts, signals, client=client)
+        ai, ai_error = ask_model(
+            message, facts, signals, search_results=search_results[:6], client=client
+        )
 
     summary = None
     confidence = None
@@ -105,6 +113,9 @@ def analyze(message, use_ai=True, client=None):
             next_steps = NEXT_STEPS[verdict]
             guard_note = "The rule checks found strong warning signs, so we raised the caution level."
 
+    if search_results:
+        source += " + web search (Tavily)"
+
     return {
         "verdict": verdict,
         "confidence": confidence,
@@ -119,4 +130,6 @@ def analyze(message, use_ai=True, client=None):
         "ai_used": ai is not None,
         "ai_error": None if ai_error == NOT_CONFIGURED else ai_error,
         "guard_note": guard_note,
+        "search_results": search_results,
+        "search_error": None if search_error == NOT_CONFIGURED else search_error,
     }

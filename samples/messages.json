@@ -81,8 +81,8 @@
     ]
   },
   {
-    "id": "suspicious_01_subscription",
-    "label": "suspicious",
+    "id": "scam_09_subscription",
+    "label": "scam",
     "text": "Your StreamFlix payment failed. Update your card details to avoid interruption: https://streamflix-billing-help.example/update",
     "expected_flags": [
       "suspicious_link",

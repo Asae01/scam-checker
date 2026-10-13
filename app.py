@@ -122,6 +122,19 @@ if st.button("Check message", type="primary"):
                 for s in result["signals"]:
                     st.markdown(f"- **{s['label']}**: {code_safe(s['evidence'])}")
 
+        if result["search_error"]:
+            st.caption("Web lookup was unavailable just now.")
+        if result["search_results"]:
+            with st.expander("Related warnings from the web (via Tavily)"):
+                st.caption("These are search results. They may describe similar scams, not this exact message.")
+                queries = list(dict.fromkeys(r["query"] for r in result["search_results"]))
+                st.caption("Searched for: " + "; ".join(plain(q) for q in queries))
+                for r in result["search_results"]:
+                    line = "- **" + plain(r["title"] or "Result") + "**"
+                    if r["snippet"]:
+                        line += ": " + plain(r["snippet"])
+                    st.markdown(line)
+
         st.subheader("What to do next")
         for step in result["next_steps"]:
             st.markdown("- " + plain(step))
@@ -142,5 +155,6 @@ st.caption(
     "This tool gives a quick estimate, not a guarantee. If you are unsure, "
     "contact the company using an official website or a number you already trust. "
     "This app does not store your message. When AI analysis is on, the message text "
-    "is sent to Nebius Token Factory to be analysed."
+    "is sent to Nebius Token Factory to be analysed, and websites, phone numbers and "
+    "handles found in it are looked up with Tavily."
 )

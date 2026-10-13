@@ -38,6 +38,7 @@ HOW TO JUDGE:
 - Base your judgement on concrete evidence from the message, the rule findings and the web results. The rule findings can be wrong, so use your own reading too.
 - Common scam signs: pressure to act fast, requests for codes, passwords, card or bank details, fees to release a parcel or prize, gift cards, secrecy, prizes, refunds or jobs that sound too good to be true, fake-looking links, impersonation, and moving the chat to another app.
 - Normal messages can contain links or codes. A message telling you NOT to share a code is normal. Do not call something a scam without evidence.
+- Web search results are only loosely related. They often describe similar scams or the real company, not this exact website, number or handle. Use them as background, and treat them as strong evidence only if they clearly name the same website, phone number or handle.
 - Never say a message is 100% safe. If the evidence is thin, say so and set "confidence" to "low".
 - Write in plain, simple English that a teenager would understand. No jargon.
 
