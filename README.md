@@ -79,6 +79,22 @@ python run_search_tests.py # Tavily step: queries, failures, privacy
 
 `python live_check.py` runs sample messages through the real model and Tavily (uses a few credits).
 
+## Accuracy test
+
+I tested 40 English messages (20 scams, 20 legitimate; half of each are "hard": scams with no obvious keywords, or legitimate messages that look scary). I wrote the messages with help from an AI assistant. They are not real messages from real senders, and they were kept separate from the 16 messages I used while building the rules. I did not tune the rules or prompt after seeing these results.
+
+| | Rules only | Rules + AI (Nemotron), two runs |
+|---|---|---|
+| Scams flagged | 15/20 | 20/20, 20/20 |
+| Scams flagged as "Likely scam" | 9/20 | 19/20, 18/20 |
+| Hard scams flagged | 5/10 | 10/10, 10/10 |
+| Legitimate left alone | 17/20 | 19/20, 19/20 |
+| Legitimate marked "Likely scam" | 0/20 | 0/20, 1/20 |
+
+The rules alone miss scams with no obvious keywords (for example "Hi mum, I dropped my phone"), which the AI catches. The AI is not perfectly repeatable, so I ran it twice. In both runs it marked the same legitimate message wrongly: a genuine password-reset notice, rated "Suspicious" the first time and "Likely scam" the second. The AI misread the message, saying the user had not requested the reset when the message says they had. I did not add a rule to hide this, because it would also hide real scams the AI catches that the rules miss. With only 40 synthetic messages these figures are a rough guide, not a measure of real-world accuracy.
+
+Reproduce with `python run_eval.py` (rules only) or `python run_eval.py ai` (uses credits).
+
 ## Project layout
 
 ```
