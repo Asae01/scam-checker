@@ -19,6 +19,7 @@ MAX_CHARS = 2000
 FLAG_WEIGHTS = {
     "otp_request": 3,
     "gift_cards": 3,
+    "brand_mismatch": 3,
     "suspicious_link": 2,
     "personal_info_request": 2,
     "fee_request": 2,

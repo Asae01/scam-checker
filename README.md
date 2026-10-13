@@ -4,8 +4,8 @@ Paste a suspicious text, email or chat message and get a quick check: a verdict 
 
 Built solo for the **Nebius x NVIDIA Global AI Hackathon** (track: **Best Apps and Agents**).
 
-- **Live demo:** YOUR-STREAMLIT-APP-LINK-HERE
-- **Demo video:** YOUR-YOUTUBE-LINK-HERE
+- **Live demo:** STREAMLIT-APP-LINK-HERE
+- **Demo video:** YOUTUBE-LINK-HERE
 
 ## Why this exists
 
@@ -18,7 +18,7 @@ message -> extract facts -> rule checks -> Tavily web lookup -> Nemotron judgeme
 ```
 
 1. **Extract facts** (plain Python): pulls out links, phone numbers and social handles. It never opens a link.
-2. **Rule checks** (plain Python): 13 red-flag checks such as urgency, requests for security codes, gift cards, secrecy and fake-looking links. Each flag keeps the exact words that triggered it.
+2. **Rule checks** (plain Python): 14 red-flag checks such as urgency, requests for security codes, gift cards, secrecy, fake-looking links, and a link that does not match the company the message claims to be from. Each flag keeps the exact words that triggered it.
 3. **Web lookup** (Tavily): searches for the websites, phone numbers and handles found. Only these details are searched, never the whole message.
 4. **AI judgement** (NVIDIA Nemotron on Nebius Token Factory): reads the message, the rule findings and the web results, then returns a verdict, a confidence level, reasons and next steps as structured JSON.
 5. **Safety net**: if the AI is fooled into saying "Probably safe" while the rules found strong warning signs, the verdict is raised to "Suspicious" and the screen says so.
@@ -71,7 +71,7 @@ The tests run offline with pretend AI and search clients, so they need no keys o
 
 ```bash
 python run_samples.py      # link, phone and handle extraction
-python run_signals.py      # rule checks vs expected flags on 14 sample messages
+python run_signals.py      # rule checks vs expected flags on 16 sample messages
 python run_pipeline.py     # rules-only verdicts on the same messages
 python run_llm_tests.py    # AI step: parsing, fallbacks, injection guard
 python run_search_tests.py # Tavily step: queries, failures, privacy
@@ -89,13 +89,13 @@ scamcheck/
   search.py         Tavily lookups
   llm.py            Nemotron call, prompt, reply checking
   pipeline.py       runs all steps and combines the result
-samples/messages.json   14 test messages (scam, suspicious, safe)
+samples/messages.json   16 test messages (scam, suspicious, safe)
 ```
 
 ## Honest limits
 
 - English only.
-- The rules and test set were written by me (14 messages). They are a starting point, not proof it works on all real scams.
+- The rules and test set were written by me (16 messages). They are a starting point, not proof it works on all real scams.
 - Web results are often about similar scams, not the exact site, so the app labels them as related warnings.
 - The AI can be wrong. The verdict is an estimate, not a guarantee.
 

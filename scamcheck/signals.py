@@ -25,6 +25,7 @@ FLAG_LABELS = {
     "gift_cards": "Asks you to buy gift cards or send codes",
     "secrecy": "Asks you to keep it secret",
     "personal_info_request": "Asks for your card, bank or login details",
+    "brand_mismatch": "Says it is from a known company, but the link goes somewhere else",
 }
 
 # Text patterns for each flag. (?i) at the start means upper/lower case does not matter.
@@ -33,7 +34,7 @@ TEXT_RULES = {
         r"(?i)\bwithin \d+\s*(hours?|hrs?|minutes?|mins?|days?)\b",
         r"(?i)\bin the next \d+\s*(hours?|hrs?|minutes?|mins?)\b",
         r"(?i)\b(immediately|urgent(ly)?|right away|act now|asap|last chance|final notice|today only)\b",
-        r"(?i)\bavoid (suspension|closure|penalt(y|ies)|legal action)\b",
+        r"(?i)\bavoid (suspension|closure|cancell?ation|deactivation|return(ed)?|being returned|penalt(y|ies)|legal action)\b",
         r"(?i)\bverify now\b",
     ],
     "fee_request": [
@@ -43,7 +44,7 @@ TEXT_RULES = {
     ],
     "impersonation": [
         # Message starts with a well-known company name, like "DHL: ..."
-        r"(?i)^\s*(\w+\s){0,2}(dhl|fedex|ups|usps|paypal|amazon|apple|microsoft|netflix|irs|hmrc)\b[:\s-]",
+        r"(?i)^\s*(dhl|fedex|ups|usps|paypal|amazon|apple|microsoft|netflix|irs|hmrc)\s*[:\-]",
         # "This is Mark from the Fraud Department" / "It's your manager"
         r"(?i)\b(this is|it'?s|i am|i'm)\b[^.!?\n]{0,40}\b(manager|boss|ceo|director|supervisor|"
         r"fraud (department|dept|team)|security (department|dept|team)|support team|"
@@ -94,6 +95,7 @@ TEXT_RULES = {
         r"(?i)\b(confirm|verify|update|enter|provide|send|submit)\b[^.]{0,25}"
         r"\b(bank|card|payment|billing|login|account|identity|personal|passport)\b[^.]{0,15}"
         r"\b(details?|info(rmation)?|number|credentials|password)\b",
+        r"(?i)\b(update|confirm|verify)\s+your\s+(personal\s+)?(info(rmation)?|details|address|identity)\b",
     ],
 }
 
@@ -145,6 +147,47 @@ def link_problems(url, domain):
     return reasons
 
 
+# Companies scammers often pretend to be, and the websites that really belong to them.
+BRANDS = {
+    "USPS": (r"usps", {"usps.com", "usps.gov"}),
+    "DHL": (r"dhl", {"dhl.com", "dhl.de", "dhl.co.uk"}),
+    "FedEx": (r"fedex", {"fedex.com"}),
+    "UPS": (r"ups", {"ups.com"}),
+    "PayPal": (r"paypal", {"paypal.com", "paypal.me"}),
+    "Amazon": (r"amazon", {"amazon.com", "amzn.to", "a.co", "amazon.co.uk", "amazon.de",
+                           "amazon.ca", "amazon.in", "amazon.com.au", "amazon.sg"}),
+    "Apple": (r"apple", {"apple.com", "icloud.com"}),
+    "Microsoft": (r"microsoft", {"microsoft.com", "live.com", "office.com", "outlook.com"}),
+    "Netflix": (r"netflix", {"netflix.com"}),
+    "IRS": (r"irs", {"irs.gov"}),
+    "HMRC": (r"hmrc", {"gov.uk"}),
+    "Royal Mail": (r"royal mail", {"royalmail.com"}),
+}
+
+
+def brand_mismatch(text, domains):
+    """If the message claims to BE a known company but no link goes to that company's
+    real website, return a plain-language reason. Otherwise return None.
+
+    "Claims to be" is deliberately narrow ("USPS: ...", "this is DHL", "Amazon security
+    alert") so a shop saying "shipped via UPS" with its own tracking link is not flagged.
+    """
+    if not domains:
+        return None
+    for name, (pattern, official) in BRANDS.items():
+        claim = re.compile(
+            rf"(?i)(?:^\s*{pattern}\s*[:\-]"
+            rf"|\b(?:this is|from|message from)\s+(?:the\s+)?{pattern}\b"
+            rf"|\b{pattern}\s+(?:notice|alert|team|support|customer service|security|billing|account)\b)"
+        )
+        if not claim.search(text):
+            continue
+        if any(d == o or d.endswith("." + o) for d in domains for o in official):
+            continue
+        return f"claims to be {name}, but the link goes to {domains[0]}"
+    return None
+
+
 def _snippet(text, limit=80):
     text = " ".join(text.split())
     return text if len(text) <= limit else text[: limit - 3] + "..."
@@ -186,5 +229,13 @@ def detect_signals(text, facts=None):
                 "evidence": domain + " " + "; ".join(reasons[:2]),
             })
             break  # one link warning is enough for now
+
+    mismatch = brand_mismatch(text, facts["domains"])
+    if mismatch:
+        found.append({
+            "flag": "brand_mismatch",
+            "label": FLAG_LABELS["brand_mismatch"],
+            "evidence": _snippet(mismatch),
+        })
 
     return found

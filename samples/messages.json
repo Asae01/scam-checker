@@ -7,7 +7,8 @@
       "urgency",
       "fee_request",
       "suspicious_link",
-      "impersonation"
+      "impersonation",
+      "brand_mismatch"
     ]
   },
   {
@@ -90,6 +91,18 @@
     ]
   },
   {
+    "id": "scam_10_usps_link",
+    "label": "scam",
+    "text": "USPS: Your package is pending delivery due to an unpaid shipping fee. Please update your information here to avoid return: https://www.fastparcelcheck.example/trial",
+    "expected_flags": [
+      "fee_request",
+      "impersonation",
+      "urgency",
+      "personal_info_request",
+      "brand_mismatch"
+    ]
+  },
+  {
     "id": "suspicious_02_cold_sales",
     "label": "suspicious",
     "text": "Hi, I'm Sarah from BrightSolar. We're offering free roof assessments in your area this week. Reply YES to book your slot.",
@@ -119,6 +132,12 @@
     "id": "safe_04_real_otp",
     "label": "safe",
     "text": "Your verification code is 482913. It expires in 10 minutes. Never share this code with anyone.",
+    "expected_flags": []
+  },
+  {
+    "id": "safe_05_amazon_shipped",
+    "label": "safe",
+    "text": "Your Amazon order #112-3948 has shipped. Track it here: https://www.amazon.com/progress-tracker",
     "expected_flags": []
   }
 ]
