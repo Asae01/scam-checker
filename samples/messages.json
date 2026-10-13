@@ -1,0 +1,124 @@
+[
+  {
+    "id": "scam_01_delivery_fee",
+    "label": "scam",
+    "text": "DHL: Your parcel is on hold due to an unpaid customs fee of $2.99. Pay within 24 hours or it will be returned to sender: http://dhl-parcel-redelivery.example/pay",
+    "expected_flags": [
+      "urgency",
+      "fee_request",
+      "suspicious_link",
+      "impersonation"
+    ]
+  },
+  {
+    "id": "scam_02_bank_lockout",
+    "label": "scam",
+    "text": "ALERT: Unusual sign-in detected on your bank account. Verify now to avoid suspension: https://secure-bank-verify.example/login",
+    "expected_flags": [
+      "urgency",
+      "suspicious_link",
+      "account_threat"
+    ]
+  },
+  {
+    "id": "scam_03_otp_request",
+    "label": "scam",
+    "text": "Hi, this is Mark from the Fraud Department. We blocked a $500 charge on your card. Please read us the 6-digit code we just sent you so we can cancel it.",
+    "expected_flags": [
+      "otp_request",
+      "impersonation"
+    ]
+  },
+  {
+    "id": "scam_04_job_offer",
+    "label": "scam",
+    "text": "Hello! We found your CV online. Earn $300 per day working from home, just 1 hour a day. No experience needed. Message us on Telegram @quickcashjobs01 to start today.",
+    "expected_flags": [
+      "too_good_to_be_true",
+      "off_platform_contact",
+      "unknown_sender"
+    ]
+  },
+  {
+    "id": "scam_05_wrong_number_crypto",
+    "label": "scam",
+    "text": "Hey, sorry, wrong number! You seem really nice though. I'm a trader and made 40% last week on a crypto platform my uncle taught me. Want me to show you how?",
+    "expected_flags": [
+      "unknown_sender",
+      "crypto_investment",
+      "too_good_to_be_true"
+    ]
+  },
+  {
+    "id": "scam_06_gift_cards_boss",
+    "label": "scam",
+    "text": "Hi, it's your manager. I'm in a meeting and can't talk. I need you to buy 5 gift cards for a client, $100 each, and send me the codes here. I'll reimburse you today. Keep this between us for now.",
+    "expected_flags": [
+      "gift_cards",
+      "secrecy",
+      "impersonation"
+    ]
+  },
+  {
+    "id": "scam_07_prize_claim",
+    "label": "scam",
+    "text": "Congratulations! You've won a $1,000 gift card in our weekly draw. Claim it in the next 2 hours: http://prize-claim-winner.example/claim",
+    "expected_flags": [
+      "too_good_to_be_true",
+      "urgency",
+      "suspicious_link"
+    ]
+  },
+  {
+    "id": "scam_08_tax_refund",
+    "label": "scam",
+    "text": "Tax Authority notice: You are eligible for a refund of $842.17. Confirm your bank details here to receive payment: https://tax-refund-gov.example/claim",
+    "expected_flags": [
+      "impersonation",
+      "suspicious_link",
+      "personal_info_request",
+      "too_good_to_be_true"
+    ]
+  },
+  {
+    "id": "suspicious_01_subscription",
+    "label": "suspicious",
+    "text": "Your StreamFlix payment failed. Update your card details to avoid interruption: https://streamflix-billing-help.example/update",
+    "expected_flags": [
+      "suspicious_link",
+      "personal_info_request"
+    ]
+  },
+  {
+    "id": "suspicious_02_cold_sales",
+    "label": "suspicious",
+    "text": "Hi, I'm Sarah from BrightSolar. We're offering free roof assessments in your area this week. Reply YES to book your slot.",
+    "expected_flags": [
+      "unknown_sender"
+    ]
+  },
+  {
+    "id": "safe_01_card_alert",
+    "label": "safe",
+    "text": "Your card ending 4821 was used for $23.50 at Corner Cafe. If this wasn't you, call the number on the back of your card.",
+    "expected_flags": []
+  },
+  {
+    "id": "safe_02_order_shipped",
+    "label": "safe",
+    "text": "Your order #48213 has shipped and will arrive on Thursday. You can track it anytime in the app.",
+    "expected_flags": []
+  },
+  {
+    "id": "safe_03_friend_dinner",
+    "label": "safe",
+    "text": "Hey, are we still on for dinner at 7? I booked the table under my name.",
+    "expected_flags": []
+  },
+  {
+    "id": "safe_04_real_otp",
+    "label": "safe",
+    "text": "Your verification code is 482913. It expires in 10 minutes. Never share this code with anyone.",
+    "expected_flags": []
+  }
+]
