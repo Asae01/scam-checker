@@ -13,7 +13,7 @@ LABEL_TO_VERDICT = {
 
 correct = 0
 for msg in messages:
-    result = analyze(msg["text"])
+    result = analyze(msg["text"], use_ai=False)
     expected = LABEL_TO_VERDICT[msg["label"]]
     ok = result["verdict"] == expected
     correct += ok
@@ -25,9 +25,9 @@ print(f"\n{correct} of {len(messages)} verdicts match the expected label.")
 
 # Edge cases.
 try:
-    analyze("   ")
+    analyze("   ", use_ai=False)
 except ValueError as error:
     print("Empty message handled:", error)
 
-long_result = analyze("hello " * 1000)
+long_result = analyze("hello " * 1000, use_ai=False)
 print("Long message cut off:", long_result["was_truncated"])
