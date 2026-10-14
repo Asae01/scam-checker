@@ -1,11 +1,11 @@
 # Scam Message Checker
 
-Paste a suspicious text, email or chat message and get a quick check: a verdict (**Likely scam**, **Suspicious** or **Probably safe**), the red flags behind it in plain English, and what to do next.
+Paste a suspicious text, email or chat message and get a quick check: a verdict (**Likely scam**, **Suspicious** or **Probably safe**), the red flags behind it in plain English, what to do next, and a ready-to-send report message you can copy.
 
 Built solo for the **Nebius x NVIDIA Global AI Hackathon** (track: **Best Apps and Agents**).
 
-- **Live demo:** STREAMLIT-APP-LINK-HERE
-- **Demo video:** YOUTUBE-LINK-HERE
+- **Live demo:** STREAMLIT-APP-LINK
+- **Demo video:** YOUTUBE-LINK
 
 ## Why this exists
 
@@ -35,7 +35,7 @@ If the AI or Tavily is unavailable, the app falls back to the rule-based result 
 
 - **Prompt-injection defence:** the message is untrusted. It is wrapped in tags, the model is told never to follow instructions inside it, and `<` / `>` are replaced so a message cannot fake a closing tag.
 - **No clickable scam links:** details from the message are shown as plain text, and AI or web text is sanitised so links are not clickable.
-- **Cost and abuse limits:** messages are cut at 2,000 characters, at most 3 web searches per check, and 20 checks per session.
+- **Cost and abuse limits:** messages are cut at 2,000 characters, at most 3 web searches per check, 20 AI checks per visitor session and 150 AI checks per day across all visitors. Past a limit the app keeps working with the free rule checks only.
 - **Privacy:** the app does not store messages. When AI is on, the message text goes to Nebius Token Factory, and extracted websites, numbers and handles go to Tavily. This is stated in the app footer.
 - **Secrets:** API keys live in `.env` locally and in Streamlit secrets when hosted. They are never in the repo.
 
@@ -78,22 +78,6 @@ python run_search_tests.py # Tavily step: queries, failures, privacy
 ```
 
 `python live_check.py` runs sample messages through the real model and Tavily (uses a few credits).
-
-## Accuracy test
-
-I tested 40 English messages (20 scams, 20 legitimate; half of each are "hard": scams with no obvious keywords, or legitimate messages that look scary). I wrote the messages with help from an AI assistant. They are not real messages from real senders, and they were kept separate from the 16 messages I used while building the rules. I did not tune the rules or prompt after seeing these results.
-
-| | Rules only | Rules + AI (Nemotron), two runs |
-|---|---|---|
-| Scams flagged | 15/20 | 20/20, 20/20 |
-| Scams flagged as "Likely scam" | 9/20 | 19/20, 18/20 |
-| Hard scams flagged | 5/10 | 10/10, 10/10 |
-| Legitimate left alone | 17/20 | 19/20, 19/20 |
-| Legitimate marked "Likely scam" | 0/20 | 0/20, 1/20 |
-
-The rules alone miss scams with no obvious keywords (for example "Hi mum, I dropped my phone"), which the AI catches. The AI is not perfectly repeatable, so I ran it twice. In both runs it marked the same legitimate message wrongly: a genuine password-reset notice, rated "Suspicious" the first time and "Likely scam" the second. The AI misread the message, saying the user had not requested the reset when the message says they had. I did not add a rule to hide this, because it would also hide real scams the AI catches that the rules miss. With only 40 synthetic messages these figures are a rough guide, not a measure of real-world accuracy.
-
-Reproduce with `python run_eval.py` (rules only) or `python run_eval.py ai` (uses credits).
 
 ## Project layout
 

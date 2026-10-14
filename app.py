@@ -9,12 +9,20 @@ from pathlib import Path
 
 import streamlit as st
 
+from scamcheck.limits import DailyLimit
 from scamcheck.pipeline import MAX_CHARS, analyze
+from scamcheck.report import build_report
 
 st.set_page_config(page_title="Scam Message Checker", page_icon="🛡️")
 
 NO_EXAMPLE = "(choose an example)"
-MAX_CHECKS_PER_SESSION = 20  # protects the AI credits on a public demo
+MAX_CHECKS_PER_SESSION = 20  # AI checks per visitor session
+MAX_AI_CHECKS_PER_DAY = 150  # AI checks per day across all visitors
+
+
+@st.cache_resource
+def get_daily_limit():
+    return DailyLimit(MAX_AI_CHECKS_PER_DAY)
 
 
 @st.cache_data
@@ -72,17 +80,27 @@ message = st.text_area(
 )
 
 if st.button("Check message", type="primary"):
-    if st.session_state.get("checks", 0) >= MAX_CHECKS_PER_SESSION:
-        st.warning("You have reached the limit for this session. Please come back later.")
-        st.stop()
+    # AI and web search cost credits, so they have limits. Past a limit the app
+    # still works, using the free rule checks only.
+    ai_ok = (
+        bool(message.strip())
+        and st.session_state.get("ai_checks", 0) < MAX_CHECKS_PER_SESSION
+        and get_daily_limit().take()
+    )
 
     try:
         with st.spinner("Checking the message..."):
-            result = analyze(message)
+            result = analyze(message, use_ai=ai_ok)
     except ValueError as error:
         st.warning(str(error))
     else:
-        st.session_state.checks = st.session_state.get("checks", 0) + 1
+        if ai_ok:
+            st.session_state.ai_checks = st.session_state.get("ai_checks", 0) + 1
+        else:
+            st.info(
+                "AI analysis and web lookups are paused right now to protect free usage "
+                "credits. This result uses the rule checks only."
+            )
 
         verdict = result["verdict"]
         if verdict == "Likely scam":
@@ -138,6 +156,19 @@ if st.button("Check message", type="primary"):
         st.subheader("What to do next")
         for step in result["next_steps"]:
             st.markdown("- " + plain(step))
+
+        report = build_report(result)
+        if report:
+            st.subheader("Report it")
+            st.caption(
+                "Copy this and send it to the company being imitated, your bank, or the app "
+                "where it arrived. Links are made harmless so nobody clicks them by accident."
+            )
+            st.code(report, language=None)
+            st.caption(
+                "Also use the report button inside the app you received it in, and look for "
+                "your country's official scam-reporting service."
+            )
 
         facts = result["facts"]
         if facts["domains"] or facts["phones"] or facts["handles"]:

@@ -118,6 +118,7 @@ def analyze(message, use_ai=True, client=None, use_search=None, search_client=No
         source += " + web search (Tavily)"
 
     return {
+        "message": message,
         "verdict": verdict,
         "confidence": confidence,
         "summary": summary,
