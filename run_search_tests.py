@@ -1,5 +1,6 @@
 """Offline tests for the Tavily step. A pretend Tavily client is used: no key or credits needed."""
 
+import testenv  # noqa: F401  (offline test environment: must come first)
 import json
 import os
 from types import SimpleNamespace

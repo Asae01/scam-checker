@@ -6,6 +6,7 @@ If Tavily is not set up or fails, we return no results and the app carries on.
 """
 
 import re
+import threading
 from concurrent.futures import ThreadPoolExecutor
 
 from .llm import NOT_CONFIGURED, get_setting
@@ -16,14 +17,22 @@ MAX_RESULTS_PER_QUERY = 3
 SNIPPET_CHARS = 300
 
 
+_client_lock = threading.Lock()
+_client_cache = {"key": None, "client": None}
+
+
 def get_client():
-    """Create the Tavily client, or return None if no key is set."""
+    """Return the shared Tavily client, or None if no key is set."""
     key = get_setting("TAVILY_API_KEY")
     if not key:
         return None
-    from tavily import TavilyClient
+    with _client_lock:
+        if _client_cache["client"] is None or _client_cache["key"] != key:
+            from tavily import TavilyClient
 
-    return TavilyClient(api_key=key)
+            _client_cache["client"] = TavilyClient(api_key=key)
+            _client_cache["key"] = key
+        return _client_cache["client"]
 
 
 def build_queries(facts):

@@ -1,0 +1,11 @@
+[theme]
+primaryColor = "#2563eb"
+
+[browser]
+gatherUsageStats = false
+
+[client]
+toolbarMode = "minimal"
+
+[server]
+enableXsrfProtection = true

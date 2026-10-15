@@ -11,6 +11,7 @@ Design rules:
 import json
 import os
 import re
+import threading
 
 from dotenv import load_dotenv
 
@@ -58,6 +59,8 @@ def get_setting(name):
     value = os.environ.get(name, "").strip()
     if value:
         return value
+    if os.environ.get("SCAMCHECK_OFFLINE"):  # set by the tests: never read hosted secrets
+        return ""
     try:
         import streamlit as st
 
@@ -66,14 +69,26 @@ def get_setting(name):
         return ""
 
 
+_client_lock = threading.Lock()
+_client_cache = {"key": None, "client": None}
+
+
 def get_client():
-    """Create the Token Factory client, or return None if no key is set."""
+    """Return the shared Token Factory client, or None if no key is set.
+
+    One client is reused for every check (it keeps connections open, so calls are
+    faster) and is rebuilt only if the key changes.
+    """
     key = get_setting("NEBIUS_API_KEY")
     if not key:
         return None
-    from openai import OpenAI
+    with _client_lock:
+        if _client_cache["client"] is None or _client_cache["key"] != key:
+            from openai import OpenAI
 
-    return OpenAI(base_url=BASE_URL, api_key=key, timeout=30, max_retries=1)
+            _client_cache["client"] = OpenAI(base_url=BASE_URL, api_key=key, timeout=30, max_retries=1)
+            _client_cache["key"] = key
+        return _client_cache["client"]
 
 
 def _safe_text(text):
@@ -171,21 +186,23 @@ def ask_model(message, facts, signals, search_results=None, client=None, model=N
         return None, NOT_CONFIGURED
 
     prompt = build_user_prompt(message, facts, signals, search_results)
-    try:
-        response = client.chat.completions.create(
-            model=model,
-            temperature=0.2,
-            max_tokens=1200,
-            messages=[
-                {"role": "system", "content": SYSTEM_PROMPT},
-                {"role": "user", "content": prompt},
-            ],
-        )
-        text = response.choices[0].message.content or ""
-    except Exception as error:  # network, key, quota, anything
-        return None, f"AI call failed ({type(error).__name__})"
+    error = "AI reply could not be understood"
+    for _attempt in range(2):  # a second try fixes the occasional unreadable reply
+        try:
+            response = client.chat.completions.create(
+                model=model,
+                temperature=0.2,
+                max_tokens=1200,
+                messages=[
+                    {"role": "system", "content": SYSTEM_PROMPT},
+                    {"role": "user", "content": prompt},
+                ],
+            )
+            text = response.choices[0].message.content or ""
+        except Exception as exc:  # network, key, quota, anything
+            return None, f"AI call failed ({type(exc).__name__})"
 
-    analysis = parse_model_json(text)
-    if analysis is None:
-        return None, "AI reply could not be understood"
-    return analysis, None
+        analysis = parse_model_json(text)
+        if analysis is not None:
+            return analysis, None
+    return None, error

@@ -26,6 +26,8 @@ FLAG_LABELS = {
     "secrecy": "Asks you to keep it secret",
     "personal_info_request": "Asks for your card, bank or login details",
     "brand_mismatch": "Says it is from a known company, but the link goes somewhere else",
+    "new_domain": "The website was registered very recently",
+    "hidden_characters": "Contains hidden characters, often used to dodge filters",
 }
 
 # Text patterns for each flag. (?i) at the start means upper/lower case does not matter.
@@ -61,7 +63,7 @@ TEXT_RULES = {
         r"(?i)\b(code|otp)\b[^.]{0,30}\b(we|i)\s+(just\s+)?sent\b",
     ],
     "too_good_to_be_true": [
-        r"(?i)\byou(?:'ve| have)?\s+(won|been selected|been chosen)\b",
+        r"(?i)\byou(?:'ve| have)?\s+(won(?!')|been selected|been chosen)\b",
         r"(?i)\bcongratulations\b",
         r"(?i)\bearn\s+\$?\d[\d,]*\s*(per|a|/)\s*(day|hour|week)\b",
         r"(?i)\bmade \d+%",
@@ -89,7 +91,7 @@ TEXT_RULES = {
     "secrecy": [
         r"(?i)\bkeep (this|it) (between us|secret|quiet|confidential)\b",
         r"(?i)\bdon'?t tell (anyone|anybody|your)\b",
-        r"(?i)\bbetween us\b",
+        r"(?i)\b(just|strictly) between us\b",
     ],
     "personal_info_request": [
         r"(?i)\b(confirm|verify|update|enter|provide|send|submit)\b[^.]{0,25}"
@@ -167,7 +169,7 @@ BRANDS = {
 
 def brand_mismatch(text, domains):
     """If the message claims to BE a known company but no link goes to that company's
-    real website, return a plain-language reason. Otherwise return None.
+    real website, return (plain-language reason, span of the claim). Otherwise None.
 
     "Claims to be" is deliberately narrow ("USPS: ...", "this is DHL", "Amazon security
     alert") so a shop saying "shipped via UPS" with its own tracking link is not flagged.
@@ -184,7 +186,8 @@ def brand_mismatch(text, domains):
             continue
         if any(d == o or d.endswith("." + o) for d in domains for o in official):
             continue
-        return f"claims to be {name}, but the link goes to {domains[0]}"
+        match = claim.search(text)
+        return f"claims to be {name}, but the link goes to {domains[0]}", match.span()
     return None
 
 
@@ -197,7 +200,8 @@ def detect_signals(text, facts=None):
     """Return a list of red flags found in the message.
 
     Each item looks like:
-      {"flag": "urgency", "label": "Pressures you to act fast", "evidence": "within 24 hours"}
+      {"flag": "urgency", "label": "Pressures you to act fast", "evidence": "within 24 hours",
+       "span": (start, end)}   # span = where it sits in the message, used for highlighting
     """
     if facts is None:
         facts = extract_facts(text)
@@ -206,6 +210,7 @@ def detect_signals(text, facts=None):
 
     for flag, patterns in TEXT_RULES.items():
         evidence = None
+        span = None
         for pattern in patterns:
             for match in re.finditer(pattern, text):
                 if flag in NEGATION_CHECKED:
@@ -213,29 +218,34 @@ def detect_signals(text, facts=None):
                     if NEGATION_RE.search(before):
                         continue
                 evidence = match.group(0)
+                span = match.span()
                 break
             if evidence:
                 break
         if evidence:
-            found.append({"flag": flag, "label": FLAG_LABELS[flag], "evidence": _snippet(evidence)})
+            found.append({"flag": flag, "label": FLAG_LABELS[flag], "evidence": _snippet(evidence), "span": span})
 
     # Link check: look at each domain found in the message.
     for url, domain in zip(facts["urls"], [get_domain(u) for u in facts["urls"]]):
         reasons = link_problems(url, domain)
         if reasons:
+            start = text.find(url)
             found.append({
                 "flag": "suspicious_link",
                 "label": FLAG_LABELS["suspicious_link"],
                 "evidence": domain + " " + "; ".join(reasons[:2]),
+                "span": (start, start + len(url)) if start >= 0 else None,
             })
             break  # one link warning is enough for now
 
     mismatch = brand_mismatch(text, facts["domains"])
     if mismatch:
+        reason, claim_span = mismatch
         found.append({
             "flag": "brand_mismatch",
             "label": FLAG_LABELS["brand_mismatch"],
-            "evidence": _snippet(mismatch),
+            "evidence": _snippet(reason),
+            "span": claim_span,
         })
 
     return found
