@@ -4,279 +4,899 @@
     "label": "scam",
     "difficulty": "easy",
     "text": "Your account has been locked. Verify your identity within 12 hours to avoid permanent closure: https://secure-login-verify.example/account",
-    "note": "account lock + fake link"
+    "note": "account lock + fake link",
+    "batch": 1,
+    "category": "account lock + fake link"
   },
   {
     "id": "scam_e02",
     "label": "scam",
     "difficulty": "easy",
     "text": "Congratulations! You've been selected to receive a $500 gift card. Claim now: http://free-rewards-claim.example",
-    "note": "prize + link"
+    "note": "prize + link",
+    "batch": 1,
+    "category": "prize + link"
   },
   {
     "id": "scam_e03",
     "label": "scam",
     "difficulty": "easy",
     "text": "We tried to deliver your package but nobody was home. Reschedule and pay the $1.50 redelivery fee: http://redelivery-pay.example/track",
-    "note": "delivery fee"
+    "note": "delivery fee",
+    "batch": 1,
+    "category": "delivery fee"
   },
   {
     "id": "scam_e04",
     "label": "scam",
     "difficulty": "easy",
     "text": "FINAL NOTICE: Your toll balance of $12.40 is overdue. Pay immediately to avoid a $50 late fee: https://toll-pay-now.example/invoice",
-    "note": "toll scam"
+    "note": "toll scam",
+    "batch": 1,
+    "category": "toll scam"
   },
   {
     "id": "scam_e05",
     "label": "scam",
     "difficulty": "easy",
     "text": "Your Netflix membership has been suspended due to a billing issue. Update your payment details: https://netflix-billing-update.example/login",
-    "note": "brand + link"
+    "note": "brand + link",
+    "batch": 1,
+    "category": "brand + link"
   },
   {
     "id": "scam_e06",
     "label": "scam",
     "difficulty": "easy",
     "text": "Security alert: someone tried to sign in to your PayPal account. Confirm your login here: https://paypal-secure-check.example",
-    "note": "brand + link"
+    "note": "brand + link",
+    "batch": 1,
+    "category": "brand + link"
   },
   {
     "id": "scam_e07",
     "label": "scam",
     "difficulty": "easy",
     "text": "I'm an agent from the Tax Office. You owe back taxes and a warrant will be issued today unless you pay with gift cards. Call 555-0142 now.",
-    "note": "tax threat + gift cards"
+    "note": "tax threat + gift cards",
+    "batch": 1,
+    "category": "tax threat + gift cards"
   },
   {
     "id": "scam_e08",
     "label": "scam",
     "difficulty": "easy",
     "text": "Work from home and earn $500 a day liking videos. No experience needed. Contact our manager on WhatsApp: +1 555 010 0123",
-    "note": "job scam"
+    "note": "job scam",
+    "batch": 1,
+    "category": "job scam"
   },
   {
     "id": "scam_e09",
     "label": "scam",
     "difficulty": "easy",
     "text": "Your computer has a virus! Call Microsoft support immediately at +1 555 010 0188 to remove it.",
-    "note": "tech support scam, no link"
+    "note": "tech support scam, no link",
+    "batch": 1,
+    "category": "tech support scam, no link"
   },
   {
     "id": "scam_e10",
     "label": "scam",
     "difficulty": "easy",
     "text": "Dear customer, your bank account will be suspended today. Click here to restore access: http://bank-restore-access.example",
-    "note": "account threat"
+    "note": "account threat",
+    "batch": 1,
+    "category": "account threat"
   },
   {
     "id": "scam_h01",
     "label": "scam",
     "difficulty": "hard",
     "text": "Hi mum, I dropped my phone in water and this is my new number. Can you send me some money for a new one? I'll pay you back, don't call me yet.",
-    "note": "family impersonation, no link"
+    "note": "family impersonation, no link",
+    "batch": 1,
+    "category": "family impersonation, no link"
   },
   {
     "id": "scam_h02",
     "label": "scam",
     "difficulty": "hard",
     "text": "Hey, it's Dave from accounts. The boss asked me to update the new vendor's bank details before Friday's payment run. Can you reply with the account number you have on file for ABC Supplies?",
-    "note": "business email style"
+    "note": "business email style",
+    "batch": 1,
+    "category": "business email style"
   },
   {
     "id": "scam_h03",
     "label": "scam",
     "difficulty": "hard",
     "text": "Hi! I saw your profile and I really liked it. I'm overseas on a business trip and feeling lonely. Can we chat on Telegram? @lonelytraveler88",
-    "note": "romance opener"
+    "note": "romance opener",
+    "batch": 1,
+    "category": "romance opener"
   },
   {
     "id": "scam_h04",
     "label": "scam",
     "difficulty": "hard",
     "text": "Your parcel could not be delivered because the address is incomplete. Please confirm your address here: https://parcel-address-help.example/confirm",
-    "note": "delivery + hyphen link"
+    "note": "delivery + hyphen link",
+    "batch": 1,
+    "category": "delivery + hyphen link"
   },
   {
     "id": "scam_h05",
     "label": "scam",
     "difficulty": "hard",
     "text": "You have a refund of $214.50 pending from a recent order. To receive it, reply with your bank account and routing number.",
-    "note": "refund, asks by reply"
+    "note": "refund, asks by reply",
+    "batch": 1,
+    "category": "refund, asks by reply"
   },
   {
     "id": "scam_h06",
     "label": "scam",
     "difficulty": "hard",
     "text": "Great news, your $5,000 loan is pre-approved with no credit check! Just pay a $99 processing fee to release the funds today.",
-    "note": "advance-fee loan"
+    "note": "advance-fee loan",
+    "batch": 1,
+    "category": "advance-fee loan"
   },
   {
     "id": "scam_h07",
     "label": "scam",
     "difficulty": "hard",
     "text": "Your Apple ID was used to sign in on a new device. If this wasn't you, tap here to lock it: https://apple-id-support.example/lock",
-    "note": "brand, no sender claim"
+    "note": "brand, no sender claim",
+    "batch": 1,
+    "category": "brand, no sender claim"
   },
   {
     "id": "scam_h08",
     "label": "scam",
     "difficulty": "hard",
     "text": "Your Windows license has expired. Renew now at www.microsoft-renewal.example to keep your files safe.",
-    "note": "brand lookalike, mild wording"
+    "note": "brand lookalike, mild wording",
+    "batch": 1,
+    "category": "brand lookalike, mild wording"
   },
   {
     "id": "scam_h09",
     "label": "scam",
     "difficulty": "hard",
     "text": "You are pre-selected for a government grant of $9,000. Reply YES and we will send the next steps.",
-    "note": "grant bait"
+    "note": "grant bait",
+    "batch": 1,
+    "category": "grant bait"
   },
   {
     "id": "scam_h10",
     "label": "scam",
     "difficulty": "hard",
     "text": "Hi, I accidentally sent $400 to your account. Please send it back to this number as soon as possible. Thanks.",
-    "note": "overpayment scam"
+    "note": "overpayment scam",
+    "batch": 1,
+    "category": "overpayment scam"
   },
   {
     "id": "safe_e01",
     "label": "safe",
     "difficulty": "easy",
     "text": "Hey, are we still meeting at the library at 4?",
-    "note": "chat"
+    "note": "chat",
+    "batch": 1,
+    "category": "chat"
   },
   {
     "id": "safe_e02",
     "label": "safe",
     "difficulty": "easy",
     "text": "Your appointment with Dr. Lee is confirmed for Tuesday at 10:30 AM. Reply C to confirm or call the clinic to reschedule.",
-    "note": "appointment"
+    "note": "appointment",
+    "batch": 1,
+    "category": "appointment"
   },
   {
     "id": "safe_e03",
     "label": "safe",
     "difficulty": "easy",
     "text": "Mum, I'll be home late tonight. Don't wait up for dinner.",
-    "note": "family chat"
+    "note": "family chat",
+    "batch": 1,
+    "category": "family chat"
   },
   {
     "id": "safe_e04",
     "label": "safe",
     "difficulty": "easy",
     "text": "Reminder: your electricity bill of $48.20 is due on the 20th. You can pay in the app or at any branch.",
-    "note": "bill reminder"
+    "note": "bill reminder",
+    "batch": 1,
+    "category": "bill reminder"
   },
   {
     "id": "safe_e05",
     "label": "safe",
     "difficulty": "easy",
     "text": "Your ride is arriving in 3 minutes. Look for a white Toyota Corolla, plate ABC 1234.",
-    "note": "ride"
+    "note": "ride",
+    "batch": 1,
+    "category": "ride"
   },
   {
     "id": "safe_e06",
     "label": "safe",
     "difficulty": "easy",
     "text": "Thanks for your order! Your receipt is attached. Questions? Just reply to this email.",
-    "note": "receipt"
+    "note": "receipt",
+    "batch": 1,
+    "category": "receipt"
   },
   {
     "id": "safe_e07",
     "label": "safe",
     "difficulty": "easy",
     "text": "Your table for 4 at Luigi's is booked for Saturday at 7 PM. See you then!",
-    "note": "booking"
+    "note": "booking",
+    "batch": 1,
+    "category": "booking"
   },
   {
     "id": "safe_e08",
     "label": "safe",
     "difficulty": "easy",
     "text": "Class is cancelled tomorrow because the lecturer is unwell. Check the portal for updates.",
-    "note": "school"
+    "note": "school",
+    "batch": 1,
+    "category": "school"
   },
   {
     "id": "safe_h01",
     "label": "safe",
     "difficulty": "hard",
     "text": "First Harbor Bank: We noticed a $320.00 purchase at Tech Mart on your card ending 5521. If this was you, no action is needed. If not, call the number on the back of your card.",
-    "note": "real bank alert"
+    "note": "real bank alert",
+    "batch": 1,
+    "category": "real bank alert"
   },
   {
     "id": "safe_h02",
     "label": "safe",
     "difficulty": "hard",
     "text": "You requested a password reset. If you didn't, ignore this message. Your reset code is 551203. It expires in 15 minutes.",
-    "note": "real reset code"
+    "note": "real reset code",
+    "batch": 1,
+    "category": "real reset code"
   },
   {
     "id": "safe_h03",
     "label": "safe",
     "difficulty": "hard",
     "text": "UPS: Your package will be delivered tomorrow between 2 and 6 PM. Track it at https://www.ups.com/track?loc=en_US",
-    "note": "real carrier + real link"
+    "note": "real carrier + real link",
+    "batch": 1,
+    "category": "real carrier + real link"
   },
   {
     "id": "safe_h04",
     "label": "safe",
     "difficulty": "hard",
     "text": "Your verification code is 904312. Do not share this code with anyone. Our staff will never ask for it.",
-    "note": "real OTP"
+    "note": "real OTP",
+    "batch": 1,
+    "category": "real OTP"
   },
   {
     "id": "safe_h05",
     "label": "safe",
     "difficulty": "hard",
     "text": "Your flight BA117 has been delayed by 2 hours. The new departure time is 18:45. Please check the app for gate updates.",
-    "note": "real flight update"
+    "note": "real flight update",
+    "batch": 1,
+    "category": "real flight update"
   },
   {
     "id": "safe_h06",
     "label": "safe",
     "difficulty": "hard",
     "text": "Hi, thanks for applying to the Junior Developer role. We'd like to invite you to a 30-minute interview on Thursday. Please reply with a time that works for you.",
-    "note": "real recruiter"
+    "note": "real recruiter",
+    "batch": 1,
+    "category": "real recruiter"
   },
   {
     "id": "safe_h07",
     "label": "safe",
     "difficulty": "hard",
     "text": "Hi, attached is invoice #2231 for $350 for the website work. Payment is due within 14 days. Thanks, Priya",
-    "note": "real invoice"
+    "note": "real invoice",
+    "batch": 1,
+    "category": "real invoice"
   },
   {
     "id": "safe_h08",
     "label": "safe",
     "difficulty": "hard",
     "text": "Look at this video, it's hilarious: https://www.youtube.com/watch?v=abc123",
-    "note": "friend link"
+    "note": "friend link",
+    "batch": 1,
+    "category": "friend link"
   },
   {
     "id": "safe_h09",
     "label": "safe",
     "difficulty": "hard",
     "text": "I'm reading about bitcoin for my finance class. Do you have any good articles on how it works?",
-    "note": "talks about crypto"
+    "note": "talks about crypto",
+    "batch": 1,
+    "category": "talks about crypto"
   },
   {
     "id": "safe_h10",
     "label": "safe",
     "difficulty": "hard",
     "text": "Thank you for entering our draw. Winners will be announced on Friday on our website.",
-    "note": "real draw"
+    "note": "real draw",
+    "batch": 1,
+    "category": "real draw"
   },
   {
     "id": "safe_h11",
     "label": "safe",
     "difficulty": "hard",
     "text": "Your library card expires next month. Renew it online or at any branch to keep borrowing books.",
-    "note": "real expiry"
+    "note": "real expiry",
+    "batch": 1,
+    "category": "real expiry"
   },
   {
     "id": "safe_h12",
     "label": "safe",
     "difficulty": "hard",
     "text": "Use code 338201 to log in to your account. Do not share this code.",
-    "note": "real login code"
+    "note": "real login code",
+    "batch": 1,
+    "category": "real login code"
+  },
+  {
+    "id": "scam2_e01",
+    "label": "scam",
+    "difficulty": "easy",
+    "text": "ALERT: Your online banking has been restricted. Log in now to restore access: https://bankofhorizon-secure.example/login",
+    "note": "bank",
+    "category": "bank",
+    "batch": 2
+  },
+  {
+    "id": "scam2_e02",
+    "label": "scam",
+    "difficulty": "easy",
+    "text": "Parcel #KR48812 is waiting for you. Confirm delivery details and pay the 1.99 handling fee here: https://parcel-handling-fee.example/pay",
+    "note": "delivery",
+    "category": "delivery",
+    "batch": 2
+  },
+  {
+    "id": "scam2_e03",
+    "label": "scam",
+    "difficulty": "easy",
+    "text": "Revenue Department: You are due a tax refund of $1,240.50. Submit your claim before it expires: http://tax-refund-claims.example/form",
+    "note": "tax",
+    "category": "tax",
+    "batch": 2
+  },
+  {
+    "id": "scam2_e04",
+    "label": "scam",
+    "difficulty": "easy",
+    "text": "CONGRATULATIONS!! You won a brand new phone in our customer survey. Pay only $3.99 shipping to claim it: http://survey-winner-phone.example",
+    "note": "prize",
+    "category": "prize",
+    "batch": 2
+  },
+  {
+    "id": "scam2_e05",
+    "label": "scam",
+    "difficulty": "easy",
+    "text": "earn 5% daily wit our AI trading bot!!! deposit $200 todayy and withdraw $1,000 in a week. guaranteed returns 🔥 join telegram t.me/aitradingprofits",
+    "note": "crypto",
+    "category": "crypto",
+    "batch": 2
+  },
+  {
+    "id": "scam2_e06",
+    "label": "scam",
+    "difficulty": "easy",
+    "text": "This is your bank's security team. We detected fraud on your card. Please tell the agent the OTP sent to your phone to block the transaction.",
+    "note": "bank otp",
+    "category": "bank otp",
+    "batch": 2
+  },
+  {
+    "id": "scam2_e07",
+    "label": "scam",
+    "difficulty": "easy",
+    "text": "Your Facebook account will be disabled in 24 hours due to a policy violation. Appeal here: https://fb-appeal-center.example/secure",
+    "note": "social media",
+    "category": "social media",
+    "batch": 2
+  },
+  {
+    "id": "scam2_e08",
+    "label": "scam",
+    "difficulty": "easy",
+    "text": "This is Officer Daniels from the cyber police. A warrant has been issued in your name. Pay the fine of $800 in gift cards immediately to avoid arrest.",
+    "note": "police",
+    "category": "police",
+    "batch": 2
+  },
+  {
+    "id": "scam2_e09",
+    "label": "scam",
+    "difficulty": "easy",
+    "text": "Part tim job offer!! earn $150-$400 dailyy from home only 30 mins. no experience. whatsapp us +44 7700 900123",
+    "note": "job",
+    "category": "job",
+    "batch": 2
+  },
+  {
+    "id": "scam2_e10",
+    "label": "scam",
+    "difficulty": "easy",
+    "text": "Your email has been selected in the International Online Lottery. You have won $2,500,000. Contact our claims agent at claims.office@lotterywin.example to receive your prize.",
+    "note": "lottery",
+    "category": "lottery",
+    "batch": 2
+  },
+  {
+    "id": "scam2_e11",
+    "label": "scam",
+    "difficulty": "easy",
+    "text": "Your Spotify Premium payment failed. Update your billing info within 48 hours or your account will be closed: https://spotify-billing-update.example",
+    "note": "subscription",
+    "category": "subscription",
+    "batch": 2
+  },
+  {
+    "id": "scam2_e12",
+    "label": "scam",
+    "difficulty": "easy",
+    "text": "Unpaid toll notice: $6.80 due. Avoid a late penalty by paying today: https://tollroad-pay-online.example/notice",
+    "note": "toll",
+    "category": "toll",
+    "batch": 2
+  },
+  {
+    "id": "scam2_e13",
+    "label": "scam",
+    "difficulty": "easy",
+    "text": "WARNING: Your device is infected with 3 viruses. Call Apple Support now at 1-800-555-0166 to clean it before your data is lost.",
+    "note": "tech support",
+    "category": "tech support",
+    "batch": 2
+  },
+  {
+    "id": "scam2_e14",
+    "label": "scam",
+    "difficulty": "easy",
+    "text": "Invoice attached for your recent purchase of $499.99. If you did not authorize this, call us immediately at +1 555 010 0177 to cancel.",
+    "note": "callback",
+    "category": "callback",
+    "batch": 2
+  },
+  {
+    "id": "scam2_e15",
+    "label": "scam",
+    "difficulty": "easy",
+    "text": "Help flood victims now! Donate with gift cards or crypto to our relief fund. Send the codes to this number today.",
+    "note": "charity",
+    "category": "charity",
+    "batch": 2
+  },
+  {
+    "id": "scam2_h01",
+    "label": "scam",
+    "difficulty": "hard",
+    "text": "Hello, I'm interested in your item. I will pay extra for fast delivery. Please send me your email so I can send the payment link. Thanks.",
+    "note": "marketplace",
+    "category": "marketplace",
+    "batch": 2
+  },
+  {
+    "id": "scam2_h02",
+    "label": "scam",
+    "difficulty": "hard",
+    "text": "Hi, are you free? I need you to handle something for me discreetly. Reply when you see this.",
+    "note": "boss opener",
+    "category": "boss opener",
+    "batch": 2
+  },
+  {
+    "id": "scam2_h03",
+    "label": "scam",
+    "difficulty": "hard",
+    "text": "Hello, I'm the owner of the apartment you enquired about. I'm out of the country, so please send the deposit of $600 by bank transfer and I'll mail you the keys.",
+    "note": "rental",
+    "category": "rental",
+    "batch": 2
+  },
+  {
+    "id": "scam2_h04",
+    "label": "scam",
+    "difficulty": "hard",
+    "text": "Dear friend, I am Barrister James Cole. A client died with no relatives and left $4.2M. I need a partner to claim it. You will receive 40%. Reply for details.",
+    "note": "advance fee",
+    "category": "advance fee",
+    "batch": 2
+  },
+  {
+    "id": "scam2_h05",
+    "label": "scam",
+    "difficulty": "hard",
+    "text": "You qualify for student loan forgiveness of up to $20,000. Reply with your date of birth and the last 4 digits of your ID to check your eligibility.",
+    "note": "loan forgiveness",
+    "category": "loan forgiveness",
+    "batch": 2
+  },
+  {
+    "id": "scam2_h06",
+    "label": "scam",
+    "difficulty": "hard",
+    "text": "You have a new voicemail from an unknown caller. Tap to listen: https://voice-message-play.example/ab12",
+    "note": "voicemail",
+    "category": "voicemail",
+    "batch": 2
+  },
+  {
+    "id": "scam2_h07",
+    "label": "scam",
+    "difficulty": "hard",
+    "text": "Your parking session is about to expire. Scan the QR code in the attached image to extend it.",
+    "note": "parking qr",
+    "category": "parking qr",
+    "batch": 2
+  },
+  {
+    "id": "scam2_h08",
+    "label": "scam",
+    "difficulty": "hard",
+    "text": "Hi, it's Sam. I'm stuck at the airport and my card got declined. Can you transfer me $250 now? I'll pay you back tonight.",
+    "note": "friend stranded",
+    "category": "friend stranded",
+    "batch": 2
+  },
+  {
+    "id": "scam2_h09",
+    "label": "scam",
+    "difficulty": "hard",
+    "text": "Good morning dear. I've been thinking about you all day. My uncle's firm has a private investment plan only for friends, 30% monthly. Shall I guide you?",
+    "note": "romance invest",
+    "category": "romance invest",
+    "batch": 2
+  },
+  {
+    "id": "scam2_h10",
+    "label": "scam",
+    "difficulty": "hard",
+    "text": "We reviewed your resume and want to hire you as a payment processor. You will receive checks, deposit them, and forward 90% by transfer. Weekly pay $1,200.",
+    "note": "money mule",
+    "category": "money mule",
+    "batch": 2
+  },
+  {
+    "id": "scam2_h11",
+    "label": "scam",
+    "difficulty": "hard",
+    "text": "Congrats! You've been picked as one of 10 lucky followers to get $500 cash. DM your CashApp tag to receive it.",
+    "note": "giveaway",
+    "category": "giveaway",
+    "batch": 2
+  },
+  {
+    "id": "scam2_h12",
+    "label": "scam",
+    "difficulty": "hard",
+    "text": "Dear customer, your electricity will be disconnected tonight at 9:30 PM because of unpaid bills. Call 0800 555 0188 immediately.",
+    "note": "utility cutoff",
+    "category": "utility cutoff",
+    "batch": 2
+  },
+  {
+    "id": "scam2_h13",
+    "label": "scam",
+    "difficulty": "hard",
+    "text": "Hi accounts team, please find our updated bank details attached. All future payments should go to the new account effective immediately.",
+    "note": "vendor fraud",
+    "category": "vendor fraud",
+    "batch": 2
+  },
+  {
+    "id": "scam2_h14",
+    "label": "scam",
+    "difficulty": "hard",
+    "text": "Your package couldn't be delivered. Reply Y to this message to reactivate the link, then open it to reschedule.",
+    "note": "reply to activate",
+    "category": "reply to activate",
+    "batch": 2
+  },
+  {
+    "id": "scam2_h15",
+    "label": "scam",
+    "difficulty": "hard",
+    "text": "Grandma, it's me. I'm in trouble and need help with bail money. Please don't tell mum or dad. Can you wire $1,500?",
+    "note": "grandparent",
+    "category": "grandparent",
+    "batch": 2
+  },
+  {
+    "id": "safe2_e01",
+    "label": "safe",
+    "difficulty": "easy",
+    "text": "Don't forget to bring your ID card tomorrow for the exam.",
+    "note": "school",
+    "category": "school",
+    "batch": 2
+  },
+  {
+    "id": "safe2_e02",
+    "label": "safe",
+    "difficulty": "easy",
+    "text": "Dinner at 8? I'll book the usual place.",
+    "note": "friend",
+    "category": "friend",
+    "batch": 2
+  },
+  {
+    "id": "safe2_e03",
+    "label": "safe",
+    "difficulty": "easy",
+    "text": "Your ride arrives in 2 minutes. Driver: Ahmad, plate WXY 4421.",
+    "note": "ride",
+    "category": "ride",
+    "batch": 2
+  },
+  {
+    "id": "safe2_e04",
+    "label": "safe",
+    "difficulty": "easy",
+    "text": "Hi Ms. Tan, your parcel is at the front desk. Please collect it before 6 PM.",
+    "note": "parcel desk",
+    "category": "parcel desk",
+    "batch": 2
+  },
+  {
+    "id": "safe2_e05",
+    "label": "safe",
+    "difficulty": "easy",
+    "text": "Your prescription is ready for pickup at Main Street Pharmacy. Open until 9 PM.",
+    "note": "pharmacy",
+    "category": "pharmacy",
+    "batch": 2
+  },
+  {
+    "id": "safe2_e06",
+    "label": "safe",
+    "difficulty": "easy",
+    "text": "Meeting moved to 3 PM in Room B. Agenda attached.",
+    "note": "work",
+    "category": "work",
+    "batch": 2
+  },
+  {
+    "id": "safe2_e07",
+    "label": "safe",
+    "difficulty": "easy",
+    "text": "Happy birthday! Hope you have a great day 🎉",
+    "note": "birthday",
+    "category": "birthday",
+    "batch": 2
+  },
+  {
+    "id": "safe2_e08",
+    "label": "safe",
+    "difficulty": "easy",
+    "text": "Your gym membership renews on the 1st. No action needed.",
+    "note": "gym",
+    "category": "gym",
+    "batch": 2
+  },
+  {
+    "id": "safe2_e09",
+    "label": "safe",
+    "difficulty": "easy",
+    "text": "The plumber will arrive between 10 and 12 tomorrow. Please make sure someone is home.",
+    "note": "plumber",
+    "category": "plumber",
+    "batch": 2
+  },
+  {
+    "id": "safe2_e10",
+    "label": "safe",
+    "difficulty": "easy",
+    "text": "Thanks for dropping by the store today! Here's your digital receipt: https://www.bookbarn.example/receipts/88213",
+    "note": "receipt link",
+    "category": "receipt link",
+    "batch": 2
+  },
+  {
+    "id": "safe2_e11",
+    "label": "safe",
+    "difficulty": "easy",
+    "text": "Reminder: Parent-teacher meeting this Friday at 4 PM in the school hall.",
+    "note": "school notice",
+    "category": "school notice",
+    "batch": 2
+  },
+  {
+    "id": "safe2_e12",
+    "label": "safe",
+    "difficulty": "easy",
+    "text": "Your order has been delivered. Rate your experience in the app.",
+    "note": "delivered",
+    "category": "delivered",
+    "batch": 2
+  },
+  {
+    "id": "safe2_h01",
+    "label": "safe",
+    "difficulty": "hard",
+    "text": "FLASH SALE: 30% off everything for the next 2 hours only! Shop now at https://www.threadhouse.example/sale. Reply STOP to opt out.",
+    "note": "marketing",
+    "category": "marketing",
+    "batch": 2
+  },
+  {
+    "id": "safe2_h02",
+    "label": "safe",
+    "difficulty": "hard",
+    "text": "Harbor Bank: We blocked a suspicious $890 transfer from your account. If this was you, reply YES. If not, call us on 0800 555 0123.",
+    "note": "bank alert",
+    "category": "bank alert",
+    "batch": 2
+  },
+  {
+    "id": "safe2_h03",
+    "label": "safe",
+    "difficulty": "hard",
+    "text": "Your Microsoft account security code is 482913. Don't share it with anyone.",
+    "note": "otp brand",
+    "category": "otp brand",
+    "batch": 2
+  },
+  {
+    "id": "safe2_h04",
+    "label": "safe",
+    "difficulty": "hard",
+    "text": "Your Netflix subscription of $15.49 renews on 12 Nov. Manage your plan at https://www.netflix.com/account.",
+    "note": "renewal",
+    "category": "renewal",
+    "batch": 2
+  },
+  {
+    "id": "safe2_h05",
+    "label": "safe",
+    "difficulty": "hard",
+    "text": "Welcome to BookBarn! Please verify your email address by opening https://www.bookbarn.example/verify?token=abc123 to finish setting up your account.",
+    "note": "verify email",
+    "category": "verify email",
+    "batch": 2
+  },
+  {
+    "id": "safe2_h06",
+    "label": "safe",
+    "difficulty": "hard",
+    "text": "Reminder: your vehicle road tax expires on 30 Nov. Renew online at the official government portal or at any post office.",
+    "note": "gov reminder",
+    "category": "gov reminder",
+    "batch": 2
+  },
+  {
+    "id": "safe2_h07",
+    "label": "safe",
+    "difficulty": "hard",
+    "text": "Hi, I'm your courier. I'm outside with your parcel. Call me on 012-345 6789 if you can't find the gate.",
+    "note": "courier",
+    "category": "courier",
+    "batch": 2
+  },
+  {
+    "id": "safe2_h08",
+    "label": "safe",
+    "difficulty": "hard",
+    "text": "Thanks for your application. Unfortunately we won't be moving forward with your profile this time. We wish you the best.",
+    "note": "rejection",
+    "category": "rejection",
+    "batch": 2
+  },
+  {
+    "id": "safe2_h09",
+    "label": "safe",
+    "difficulty": "hard",
+    "text": "Hi, rent for November is due on the 1st. Please transfer to the usual account. Thanks, Mr. Lim.",
+    "note": "landlord",
+    "category": "landlord",
+    "batch": 2
+  },
+  {
+    "id": "safe2_h10",
+    "label": "safe",
+    "difficulty": "hard",
+    "text": "Planned maintenance: water supply will be interrupted on Sunday from 9 AM to 1 PM in your area. We apologise for the inconvenience.",
+    "note": "maintenance",
+    "category": "maintenance",
+    "batch": 2
+  },
+  {
+    "id": "safe2_h11",
+    "label": "safe",
+    "difficulty": "hard",
+    "text": "Did you see Ethereum's price today? My cousin says forex trading is risky, but I'm just reading about it.",
+    "note": "crypto chat",
+    "category": "crypto chat",
+    "batch": 2
+  },
+  {
+    "id": "safe2_h12",
+    "label": "safe",
+    "difficulty": "hard",
+    "text": "Reminder: invoice #7782 is due within 7 days. Pay via the link in your email or contact accounts at accounts@brightco.example.",
+    "note": "invoice reminder",
+    "category": "invoice reminder",
+    "batch": 2
+  },
+  {
+    "id": "safe2_h13",
+    "label": "safe",
+    "difficulty": "hard",
+    "text": "Join our study group on Telegram: t.me/uni_study_2026. We share notes there.",
+    "note": "study group",
+    "category": "study group",
+    "batch": 2
+  },
+  {
+    "id": "safe2_h14",
+    "label": "safe",
+    "difficulty": "hard",
+    "text": "Please pick up the kids at 5. Don't tell them about the surprise party!",
+    "note": "surprise party",
+    "category": "surprise party",
+    "batch": 2
+  },
+  {
+    "id": "safe2_h15",
+    "label": "safe",
+    "difficulty": "hard",
+    "text": "Your login code is 663104. It will expire in 5 minutes. If you didn't request it, secure your account.",
+    "note": "login code",
+    "category": "login code",
+    "batch": 2
+  },
+  {
+    "id": "safe2_h16",
+    "label": "safe",
+    "difficulty": "hard",
+    "text": "Thank you for shopping with us! You've been entered into our monthly draw. Winners are contacted by email only, and we will never ask for payment.",
+    "note": "draw",
+    "category": "draw",
+    "batch": 2
+  },
+  {
+    "id": "safe2_h17",
+    "label": "safe",
+    "difficulty": "hard",
+    "text": "Thank you for your donation of $25 to the Red River Food Bank. Your receipt is attached. It means a lot to families in our community.",
+    "note": "donation",
+    "category": "donation",
+    "batch": 2
+  },
+  {
+    "id": "safe2_h18",
+    "label": "safe",
+    "difficulty": "hard",
+    "text": "Hi, this is Dana from BrightCo support following up on ticket #4412. Your issue is resolved. Reply if you need anything else.",
+    "note": "support follow-up",
+    "category": "support follow-up",
+    "batch": 2
   }
 ]

@@ -22,6 +22,7 @@ for msg in messages:
           f"verdict={result['verdict']:<14} (expected {expected})")
 
 print(f"\n{correct} of {len(messages)} verdicts match the expected label.")
+assert correct == len(messages), "some verdicts do not match the expected label"
 
 # Edge cases.
 try:

@@ -1,14 +1,19 @@
 """The pipeline: runs every step in order and returns one result for the screen.
 
-Steps: extract facts -> rule checks -> Tavily web lookup -> AI judgement.
+Steps: extract facts -> rule checks -> website age + Tavily web lookup -> AI judgement.
 If the AI step is not set up or fails, the rule-based answer is still returned,
 so the app never shows an empty screen.
 """
 
+import time
+from concurrent.futures import ThreadPoolExecutor
+
+from .domainage import domain_age_signals
 from .extract import extract_facts
 from .llm import NOT_CONFIGURED, ask_model
+from .sanitize import clean_message
 from .search import search_entities
-from .signals import detect_signals
+from .signals import FLAG_LABELS, detect_signals
 
 LEVELS = ["Probably safe", "Suspicious", "Likely scam"]
 
@@ -20,6 +25,7 @@ FLAG_WEIGHTS = {
     "otp_request": 3,
     "gift_cards": 3,
     "brand_mismatch": 3,
+    "new_domain": 2,
     "suspicious_link": 2,
     "personal_info_request": 2,
     "fee_request": 2,
@@ -31,6 +37,7 @@ FLAG_WEIGHTS = {
     "off_platform_contact": 1,
     "unknown_sender": 1,
     "crypto_investment": 1,
+    "hidden_characters": 1,
 }
 
 NEXT_STEPS = {
@@ -62,35 +69,66 @@ def rule_verdict(signals):
     return score, "Probably safe"
 
 
-def analyze(message, use_ai=True, client=None, use_search=None, search_client=None):
+def analyze(message, use_ai=True, client=None, use_search=None, search_client=None,
+            use_domain_age=None, age_opener=None):
     """Check a message and return everything the screen needs to show."""
-    message = (message or "").strip()
-    if not message:
+    started = time.perf_counter()
+    original = str(message or "").strip()
+    if not original:
         raise ValueError("Please paste a message to check.")
 
-    was_truncated = len(message) > MAX_CHARS
-    message = message[:MAX_CHARS]
+    was_truncated = len(original) > MAX_CHARS
+
+    # Step 0: clean the text (hidden characters, look-alike letters, card numbers).
+    message, privacy = clean_message(original[:MAX_CHARS])
+    if not message:
+        raise ValueError("Please paste a message to check.")
 
     # Step 1: pull out links, phones, handles.
     facts = extract_facts(message)
 
     # Step 2: rule checks.
     signals = detect_signals(message, facts)
-    score, verdict = rule_verdict(signals)
+    hidden = privacy["hidden_chars"] + privacy["bidi_controls"]
+    if privacy["bidi_controls"] or privacy["hidden_chars"] >= 3:
+        signals.append({
+            "flag": "hidden_characters",
+            "label": FLAG_LABELS["hidden_characters"],
+            "evidence": f"{hidden} hidden characters removed",
+            "span": None,
+        })
 
-    # Step 3: look up the websites, phone numbers and handles found (not the whole message).
+    # Step 3: network lookups, run side by side: web search (Tavily) and website age (RDAP).
     if use_search is None:
         use_search = use_ai
-    search_results, search_error = [], None
-    if use_search:
-        search_results, search_error = search_entities(facts, client=search_client)
+    if use_domain_age is None:
+        use_domain_age = use_ai
+    search_results, search_error, domain_ages = [], None, []
+    lookups_started = time.perf_counter()
+    if use_search or use_domain_age:
+        with ThreadPoolExecutor(max_workers=2) as pool:
+            search_job = pool.submit(search_entities, facts, client=search_client) if use_search else None
+            age_job = (
+                pool.submit(domain_age_signals, facts, message, opener=age_opener)
+                if use_domain_age else None
+            )
+            if search_job:
+                search_results, search_error = search_job.result()
+            if age_job:
+                age_signals, domain_ages = age_job.result()
+                signals = signals + age_signals
+
+    score, verdict = rule_verdict(signals)
+    lookups_seconds = time.perf_counter() - lookups_started
 
     # Step 4: ask the AI model to judge everything together.
     ai, ai_error = (None, None)
+    ai_started = time.perf_counter()
     if use_ai:
         ai, ai_error = ask_model(
             message, facts, signals, search_results=search_results[:6], client=client
         )
+    ai_seconds = time.perf_counter() - ai_started
 
     summary = None
     confidence = None
@@ -132,6 +170,13 @@ def analyze(message, use_ai=True, client=None, use_search=None, search_client=No
         "ai_used": ai is not None,
         "ai_error": None if ai_error == NOT_CONFIGURED else ai_error,
         "guard_note": guard_note,
+        "domain_ages": domain_ages,
         "search_results": search_results,
         "search_error": None if search_error == NOT_CONFIGURED else search_error,
+        "privacy": privacy,
+        "timing": {
+            "lookups": round(lookups_seconds, 2),
+            "ai": round(ai_seconds, 2),
+            "total": round(time.perf_counter() - started, 2),
+        },
     }

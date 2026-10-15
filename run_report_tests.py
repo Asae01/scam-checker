@@ -1,5 +1,6 @@
 """Offline tests for the report message and the daily limit. No keys or credits needed."""
 
+import testenv  # noqa: F401  (offline test environment: must come first)
 from datetime import date
 
 from scamcheck.limits import DailyLimit

@@ -1,10 +1,11 @@
 """Offline tests for the AI step. A pretend model is used, so no key or credits are needed."""
 
+import testenv  # noqa: F401  (offline test environment: must come first)
 import json
 import os
 from types import SimpleNamespace
 
-from scamcheck.llm import ask_model, build_user_prompt, parse_model_json
+from scamcheck.llm import build_user_prompt, parse_model_json
 from scamcheck.extract import extract_facts
 from scamcheck.pipeline import analyze
 from scamcheck.signals import detect_signals

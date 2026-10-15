@@ -28,6 +28,7 @@ for msg in messages:
         print(f"     EXTRA:   {sorted(extra)}")
 
 print(f"\n{matches} of {len(messages)} messages match their expected flags.")
+assert matches == len(messages), "some messages do not match their expected flags"
 
 # Extra checks for tricky cases the sample messages do not cover.
 def flags_of(text):
@@ -49,5 +50,15 @@ assert "brand_mismatch" not in flags_of("Your Amazon order has shipped. Track it
 assert "brand_mismatch" not in flags_of("Amazon security alert: see https://www.amazon.co.uk/your-account")
 assert "brand_mismatch" in flags_of("This is PayPal support. Fix your account: https://paypal-help-center.example/login")
 assert "impersonation" not in flags_of("Your Amazon order has shipped.")
+
+# Bugs found by the SMS dataset test: "you won't" is not "you won", and "between us" alone is not secrecy.
+assert "too_good_to_be_true" not in flags_of("You won't feel bad about it.")
+assert "too_good_to_be_true" not in flags_of("You won't believe what happened today")
+assert "too_good_to_be_true" in flags_of("You won a free holiday!")
+assert "too_good_to_be_true" in flags_of("Good news, you have won $500")
+assert "too_good_to_be_true" in flags_of("Today you've won a prize")
+assert "secrecy" not in flags_of("I wonder what is between us, honestly")
+assert "secrecy" in flags_of("Keep this between us")
+assert "secrecy" in flags_of("This is just between us, ok?")
 
 print("All extra checks passed.")

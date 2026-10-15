@@ -1,0 +1,5 @@
+# Standard, stable checks: syntax errors, undefined names, unused imports/variables.
+# (Broader style rules are off on purpose; the app deliberately catches broad errors
+# so one failure never shows visitors a crash.)
+[lint]
+select = ["E4", "E7", "E9", "F"]
