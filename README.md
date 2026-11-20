@@ -7,9 +7,6 @@
 | | |
 |---|---|
 | **Live demo** | https://scam-checker-jzvvktrahqftfcappgwkbws.streamlit.app/ |
-| **Demo video** | YOUTUBE-LINK |
-| **Hackathon / track** | Nebius x NVIDIA Global AI Hackathon 2026 / Best Apps and Agents |
-| **Entry** | Solo |
 | **License** | MIT |
 
 
@@ -66,15 +63,6 @@ flowchart LR
 - **Where Token Factory helped.** The OpenAI-compatible API meant a working model call in a few lines, and the model catalogue let me pick a small, fast Nemotron model for a task where speed matters. One measured call used 1,654 tokens. At the published Nano prices ($0.06 per million input tokens and $0.24 per million output tokens) that is under $0.0005 even if every token were billed at the higher output price. Checks that include web results are longer, so I budget about $0.001 per check. The Token Factory usage page shows the real figure.
 - **Tavily** (Nebius Builder Program) provides the web lookups. Results go to the AI as background evidence, and are shown to the user labelled as related warnings, because search results often describe similar scams rather than the exact site.
 - **Not used:** Nebius AI Cloud and Serverless. The app is hosted on Streamlit Community Cloud.
-
-## How it meets the judging criteria
-
-| Criterion | What this project does |
-|---|---|
-| **Technological implementation** | A pipeline of rules, website-age lookups, web search and Nemotron, with structured output, a retry, fallbacks at every step, a shared client, timing shown per check, 11 offline test files, CI and a secret scanner. |
-| **Design** | A complete product, not a demo: a verdict card, next steps first, highlighted evidence, a copyable report, an empty state and a loader. It keeps working on a phone, uses words and icons (never colour alone), has visible keyboard focus, and respects "reduce motion". Key text and background colours measure 5.4:1 or better (WCAG asks for 4.5:1). |
-| **Potential impact** | Anyone who gets a suspicious message can paste it and learn what to do, in plain language, without giving up private details. It says when it is unsure and never claims a message is certainly safe. |
-| **Quality of the idea** | Scam detection is a familiar idea, so the difference is in the approach: evidence-first, rules plus AI plus live lookups, honest published accuracy, and defence against attacks on the checker itself. |
 
 ## Full evaluation
 
@@ -217,7 +205,7 @@ check_secrets.py        secret scanner
 
 ## How this was built
 
-Built solo for this hackathon. I used AI assistants (Claude, and Codex for an early draft of the interface that I later rebuilt) to help write code and test messages, and I ran every test and evaluation, made the design and priority decisions, and reviewed the results. Everything in the evaluation sections comes from runs I did myself.
+Built solo. I used AI assistants (Claude, and Codex for an early draft of the interface that I later rebuilt) to help write code and test messages, and I ran every test and evaluation, made the design and priority decisions, and reviewed the results. Everything in the evaluation sections comes from runs I did myself.
 
 ## What I would do next
 
